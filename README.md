@@ -10,7 +10,6 @@ Malaysia's Pengerang Integrated Complex is one of Asia's largest refining hubs, 
 flowchart LR
     IOT[IoT Core] --> KIN[Kinesis]
     KIN --> SPS[Snowpipe Streaming]
-    SP --> RAW[RAW Tables]
     SPS --> RAW
     RAW --> DT[Dynamic Tables]
     DT --> ML[ML Functions]
