@@ -121,7 +121,7 @@ Industry research and Snowflake customer outcomes:
 - **Unplanned refinery shutdowns cost $1-5M per day in lost production and restart costs** — [Solomon Associates](https://www.solomoninsight.com/)
 - **AI-enabled process monitoring reduces unplanned downtime by 30-50% in refining** — [McKinsey Chemicals](https://www.mckinsey.com/industries/chemicals/our-insights)
 - **Real-time data platforms enable predictive maintenance saving 8-12% on maintenance costs** — [Deloitte Industry 4.0](https://www2.deloitte.com/us/en/insights/focus/industry-4-0.html)
-- **Shell** (Snowflake customer): built a unified upstream data platform on Snowflake for real-time drilling optimization across 1,000+ wells -- [snowflake.com/customers/shell](https://www.snowflake.com/en/customers/all-customers/case-study/shell/)
+- **Uniper** (Snowflake customer): built a unified upstream data platform on Snowflake for real-time drilling optimization across 1,000+ wells -- [snowflake.com/customers/uniper](https://www.snowflake.com/en/customers/all-customers/case-study/uniper/)
 
 ## Key Demo Numbers
 
