@@ -120,7 +120,7 @@ Industry research and Snowflake customer outcomes:
 - **Malaysia's refining capacity reached 796,500 bbl/d with Pengerang as the flagship complex** — [EIA](https://www.eia.gov/international/analysis/country/MYS)
 - **Unplanned refinery shutdowns cost $1-5M per day in lost production and restart costs** — [Solomon Associates](https://www.solomoninsight.com/)
 - **AI-enabled process monitoring reduces unplanned downtime by 30-50% in refining** — [McKinsey Chemicals](https://www.mckinsey.com/industries/chemicals/our-insights)
-- **Real-time data platforms enable predictive maintenance saving 8-12% on maintenance costs** — [Deloitte Industry 4.0](https://www2.deloitte.com/us/en/insights/focus/industry-4-0/smart-factory-connected-manufacturing.html)
+- **Real-time data platforms enable predictive maintenance saving 8-12% on maintenance costs** — [Deloitte Industry 4.0](https://www2.deloitte.com/us/en/insights/focus/industry-4-0.html)
 
 
 ## Key Demo Numbers
