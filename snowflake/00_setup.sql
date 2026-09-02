@@ -1,16 +1,13 @@
--- ============================================================================
--- Refinery Operations Intelligence
--- Real-time monitoring of Malaysia's refinery operations — IoT sensors stream process data, ML.ANOMALY_DETECTION catches excursions, and React Canvas visualizes the refinery digital twin.
--- ============================================================================
-USE ROLE ACCOUNTADMIN;
-CREATE DATABASE IF NOT EXISTS OIL_GAS_REFINERY;
-CREATE WAREHOUSE IF NOT EXISTS OG_REFINERY_WH WAREHOUSE_SIZE = 'MEDIUM' AUTO_SUSPEND = 120 AUTO_RESUME = TRUE;
-USE DATABASE OIL_GAS_REFINERY;
-CREATE SCHEMA IF NOT EXISTS RAW;
-CREATE SCHEMA IF NOT EXISTS CURATED;
-CREATE SCHEMA IF NOT EXISTS ML;
-CREATE SCHEMA IF NOT EXISTS AI;
-CREATE SCHEMA IF NOT EXISTS SEARCH;
-CREATE SCHEMA IF NOT EXISTS APP;
+-- Generated from generator/demo_specs/aws-malaysia-oil-gas-refinery.json
+-- Regenerate with: python3 generator/gen_repo_docs.py aws-malaysia-oil-gas-refinery
+-- This is the schema that is actually deployed for MY_OIL_GAS_REFINERY.
 
-USE WAREHOUSE OG_REFINERY_WH;
+-- MY_OIL_GAS_REFINERY  (Refinery Operations Intelligence)
+-- generated from generator/demo_specs/aws-malaysia-oil-gas-refinery.json - do not hand-edit
+CREATE DATABASE IF NOT EXISTS MY_OIL_GAS_REFINERY;
+CREATE SCHEMA IF NOT EXISTS MY_OIL_GAS_REFINERY.RAW;
+CREATE SCHEMA IF NOT EXISTS MY_OIL_GAS_REFINERY.CURATED;
+CREATE SCHEMA IF NOT EXISTS MY_OIL_GAS_REFINERY.APP;
+USE DATABASE MY_OIL_GAS_REFINERY;
+
+-- 5 real regions; entity names carry their region so the two always agree
