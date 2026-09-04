@@ -54,6 +54,7 @@ export default function HomePage() {
         <div className="lg:col-span-1">
           <GeoMap
             country="malaysia"
+            labels={{ entity: 'Units', event: 'Sensor Readings', alert: 'Excursions' }}
             regions={data?.regions}
             markers={[{"label": "Kuala Lumpur", "value": "PETRONAS Tower HQ", "color": "blue", "size": "lg"}, {"label": "Johor Bahru", "value": "Refinery: 242K bpd", "color": "green", "size": "lg"}, {"label": "Kota Kinabalu", "value": "Deepwater ops", "color": "green", "size": "md"}, {"label": "Kuching", "value": "Sarawak gas", "color": "green", "size": "md"}]}
             routes={[]}
@@ -82,10 +83,15 @@ export default function HomePage() {
       </div>
       <DataTable
         columns={[
-          { key: 'id', header: 'Unit' },
-          { key: 'name', header: 'Status' },
+          { key: 'id', header: '#' },
+          { key: 'name', header: 'Unit' },
+          { key: 'region', header: 'Region' },
           { key: 'status', header: 'Health' },
-          { key: 'value', header: 'Throughput (K bpd)' },
+          { key: 'm1', header: 'Throughput (K bpd)' },
+          { key: 'm2', header: 'Product Yield' },
+          { key: 'm3', header: 'Margin Optimization' },
+          { key: 'events', header: 'Sensor Readings' },
+          { key: 'alerts', header: 'Excursions' },
         ]}
         data={data?.entities || []}
         title="Unit Performance"
