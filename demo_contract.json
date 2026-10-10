@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "repo": "aws-malaysia-oil-gas-refinery",
+  "operation": "on-demand",
+  "data_classification": "synthetic demonstration only",
+  "grains": {
+    "RAW.UNITS": "one row per process unit (distillation, conversion or treating)",
+    "RAW.UNIT_DAILY": "one row per unit per day (90 days)",
+    "RAW.CRITICAL_SPARES": "one row per unit (critical spares snapshot)",
+    "CURATED.PERFORMANCE_SUMMARY": "one row per unit",
+    "CURATED.TREND_ANALYSIS": "one row per day",
+    "CURATED.UPSET_CAUSES": "one row per root cause",
+    "CURATED.KPI_SUMMARY": "one row per KPI",
+    "ML.UPSET_RISK_SCORES": "one row per unit (latest day)"
+  },
+  "metrics": {
+    "Yield Attainment": "100 * SUM(PRODUCT_BBL) / SUM(TARGET_PRODUCT_BBL)",
+    "Process Upsets": "SUM(UPSET_COUNT)",
+    "Energy Intensity": "SUM(ENERGY_GJ) / SUM(CHARGE_BBL), GJ per barrel of charge",
+    "Charge Processed (bbl)": "SUM(CHARGE_BBL)",
+    "Unit Availability": "100 * SUM(OPERATING_HOURS) / SUM(PLANNED_HOURS)",
+    "Process Units Monitored": "COUNT(RAW.UNITS)",
+    "Critical Spares Coverage": "100 * SUM(LEAST(ON_HAND_QTY, REQUIRED_QTY)) / SUM(REQUIRED_QTY)"
+  },
+  "chart_bindings": {
+    "daily_yield_attainment": [
+      "CURATED.TREND_ANALYSIS.METRIC_DATE",
+      "YIELD_ATTAINMENT_PCT"
+    ],
+    "product_shortfall_by_cause": [
+      "CURATED.UPSET_CAUSES.ROOT_CAUSE",
+      "PRODUCT_SHORTFALL_BBL"
+    ],
+    "pm_vs_yield_attainment": [
+      "CURATED.PERFORMANCE_SUMMARY.PM_COMPLIANCE_PCT",
+      "YIELD_ATTAINMENT_PCT"
+    ],
+    "quicksight_upset_risk": [
+      "ENTITY_ID",
+      "MAX(UPSET_PROB_7D)"
+    ]
+  },
+  "freshness": "MAX(EVENT_DATE) is an observation watermark; requestedAt is not freshness",
+  "required_capabilities": {
+    "core_pipeline": "Curated KPIs reconcile to a RAW recomputation (run_core.py checks this on every build)",
+    "upset_risk_model": "Snowflake ML CLASSIFICATION of P(process upset in next 7 days) per unit, evaluated on an out-of-time holdout",
+    "forecast_and_anomaly": "14-day network-wide yield-attainment FORECAST; setpoint deviation ANOMALY_DETECTION (train 75 days, detect last 15)",
+    "search": "Cortex Search SEARCH.PROCESS_SOP_SEARCH over synthetic upset-response SOPs (one per unit type and cause)",
+    "semantic_analytics": "Semantic view APP.PROCESS_ANALYTICS and Cortex Agent APP.PROCESS_AGENT using analyst + search tools",
+    "grounded_ai": "Agent answers return generated SQL and SOP citations; the action memo uses only KPI, upset, cause and risk rows",
+    "quicksight": "DIRECT_QUERY dashboard (KPIs, daily yield attainment, upsets by unit, upset risk, IoT message count) through a read-only Snowflake service user",
+    "quicksight_q": "Amazon Q topic over the curated datasets for natural-language questions",
+    "aws_ingestion": "IoT Core rule -> S3 -> Snowpipe AUTO_INGEST into RAW.LIVE_TELEMETRY",
+    "notifications": "APP.LIVE_ALARM_ALERT logs new ALARM readings to APP.ALERT_LOG and emails via SYSTEM$SEND_EMAIL; alert and tasks suspended between demos",
+    "orchestration": "Task graph APP.TASK_REFRESH_CURATED -> APP.TASK_RESCORE_RISK run on demand (EXECUTE TASK)",
+    "app_deployment": "SPCS service APP.MY_OIL_GAS_REFINERY_APP; routes /api/data, /api/ask, /api/agent"
+  },
+  "builds": {
+    "snowflake": {
+      "database": "MALAYSIA_OIL_GAS_REFINERY_SNOWFLAKE",
+      "app_setting": "DEMO_PLATFORM=snowflake",
+      "live_telemetry": "APP.SIMULATE_TELEMETRY(n)",
+      "memo": "Cortex AI_COMPLETE (claude-sonnet-4-5)"
+    },
+    "aws": {
+      "database": "MALAYSIA_OIL_GAS_REFINERY_AWS",
+      "app_setting": "DEMO_PLATFORM=aws",
+      "live_telemetry": "AWS IoT Core -> S3 -> Snowpipe",
+      "memo": "Amazon Bedrock Claude Sonnet 4.5 via APP.BEDROCK_GENERATE",
+      "capabilities": "see required_capabilities"
+    }
+  }
+}
